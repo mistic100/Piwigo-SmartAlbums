@@ -149,12 +149,14 @@ SELECT *
           case 'all':
           {
             $tags_arr = explode(',', $filter['value']);
+            $tags_where = array() ;
             foreach ($tags_arr as $value)
             {
               $join[] = IMAGE_TAG_TABLE.' AS it'.$i_tags.' ON i.id = it'.$i_tags.'.image_id';
-              $where[] = 'it'.$i_tags.'.tag_id = '.$value;
+              $tags_where[] = 'it'.$i_tags.'.tag_id = '.$value;
               $i_tags++;
             }
+            $where[] = '('.implode(' and ', $tags_where).')' ;
 
             break;
           }
