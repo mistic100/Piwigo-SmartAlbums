@@ -246,3 +246,37 @@
   </span>
 </li>
 </div>
+
+<!-- public_physical -->
+<div id="filter_public_physical">
+<li id="filter_iiii" class="filter_public_physical">
+  <span class="filter-title">
+    <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
+    <input type="hidden" name="filters[iiii][type]" value="public_physical"/>
+    {$options.public_physical.name}
+  </span>
+  
+  <span><b>{'Info'|translate}</b> <a href="admin.php?page=plugin-SmartAlbums-config" title="{'Edit'|translate} {'Exclude SmartAlbums from permissions management'|translate}">{$options.permission.sif_lnk}</a> : {$options.permission.sif}</span>
+</li>
+</div>
+
+<!-- permission -->
+<div id="filter_permission">
+<li id="filter_iiii" class="filter_permission">
+  <span class="filter-title">
+    <a href="#" class="removeFilter" title="{'remove this filter'|translate}"><span>[x]</span></a>
+    <input type="hidden" name="filters[iiii][type]" value="permission"/>
+    {$options.permission.name}
+  </span>
+  
+  <span class="filter-cond" style="width:auto;">
+    <b>{'From'|translate}</b>
+    <select name="filters[iiii][cond]">
+      {html_options options=$options.permission.options}
+    </select>
+    <br><i>{'The permission'|translate}</i>
+  </span>
+  
+  <span><b>{'Info'|translate}</b> <a href="admin.php?page=plugin-SmartAlbums-config" title="{'Edit'|translate} {'Exclude SmartAlbums from permissions management'|translate}">{$options.permission.sif_lnk}</a> : {$options.permission.sif}</span>
+</li>
+</div>

@@ -481,6 +481,51 @@ SELECT *
         $mode = $filter['value'];
         break;
       }
+      
+      // public_physical
+      case 'public_physical':
+      {
+        $join[] = CATEGORIES_TABLE.' AS ppa ON i.storage_category_id = ppa.id' ;
+        $where[] = 'ppa.status = \'public\'' ;
+
+        break;
+    }
+      
+      // permission
+      case 'permission':
+      {
+        switch ($filter['cond'])
+        {
+          // search images which have all tags
+          case 'public_physical':
+          {
+            $join[] = CATEGORIES_TABLE.' AS pfppa ON i.storage_category_id = pfppa.id' ;
+            $where[] = 'pfppa.status = \'public\'' ;
+        
+            break;
+  }
+          // search images which tags are in the list
+          case 'public_virtual':
+          {
+            $join[] = IMAGE_CATEGORY_TABLE.' AS pfia ON i.id = pfia.image_id' ;
+            $join[] = CATEGORIES_TABLE.' AS pfpva ON pfia.category_id = pfpva.id' ;
+            $where[] = '( pfpva.status = \'public\'  AND  i.storage_category_id != pfpva.id )' ;
+  
+            break;
+          }
+          // exclude images which tags are in the list
+          case 'public_any':
+          {
+            $join[] = IMAGE_CATEGORY_TABLE.' AS pfia ON i.id = pfia.image_id' ;
+            $join[] = CATEGORIES_TABLE.' AS pfpaa ON pfia.category_id = pfpaa.id' ;
+            $where[] = 'pfpaa.status = \'public\'' ;
+        
+            break;
+          }
+        }
+
+        break;
+      }
     }
   }
 
@@ -524,11 +569,13 @@ SELECT i.id
  */
 function smart_check_filter($filter)
 {
-  global $page, $limit_is_set, $level_is_set;
+  global $page, $limit_is_set, $level_is_set, $fppa_is_set, $fpp_is_set;
 
   $error = false;
   if (!isset($limit_is_set)) $limit_is_set = false;
   if (!isset($level_is_set)) $level_is_set = false;
+  if (!isset($fppa_is_set)) $fppa_is_set = false;
+  if (!isset($fpp_is_set)) $fpp_is_set = false;
 
   switch ($filter['type'])
   {
@@ -665,6 +712,32 @@ function smart_check_filter($filter)
     case 'mode':
     {
       $filter['cond'] = 'mode';
+      break;
+    }
+    # public_physical
+    case 'public_physical':
+    {
+      if ($fppa_is_set == true) // only one fppa is allowed, first is saved
+      {
+        $page['errors'][] = l10n('You can\'t use more than one "From public physical albums" filter');
+      }
+      else
+      {
+        $fppa_is_set = true;
+      }
+      break;
+    }
+    # permission
+    case 'permission':
+    {
+      if ($fpp_is_set == true) // only one fpp is allowed, first is saved
+      {
+        $page['errors'][] = l10n('You can\'t use more than one "Permission" filter');
+      }
+      else
+      {
+        $fpp_is_set = true;
+      }
       break;
     }
 

@@ -80,3 +80,8 @@
   .chzn-choices .search-field input {
     padding-bottom:1px !important;
   }
+  #batchManagerGlobal a.removeFilter {
+    position: relative;
+    top: 0;
+    font-family: "fontello";
+  } 

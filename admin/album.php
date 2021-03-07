@@ -215,6 +215,21 @@ $options = array(
       'id DESC'             => l10n('Numeric identifier, 9 &rarr; 1'),
       ),
     ),
+  'public_physical' => array(
+      'name' => l10n('From public physical albums'),
+      'sif_lnk' => ($conf['SmartAlbums']['smart_is_forbidden'])?'Smart is forbidden':'Smart is allowed',
+      'sif' => ($conf['SmartAlbums']['smart_is_forbidden'])?'visitor permissions prepend. Pictures from private albums will be rejected for ungranted visitors. Hence, <strong>using this filter is not required</strong>.':'static permissions. Pictures from private albums may be associated to this virtual smart album. <strong>Using this filter will prevent this to happen</strong>.',
+    ),
+  'permission' => array(
+      'name' => l10n('Permission from'),
+      'options' => array(
+        'public_physical'   => l10n('From public physical albums'),
+        'public_virtual'    => l10n('From public virtual albums'),
+        'public_any'        => l10n('From public any albums'),
+      ),
+      'sif_lnk' => ($conf['SmartAlbums']['smart_is_forbidden'])?'Smart is forbidden':'Smart is allowed',
+      'sif' => ($conf['SmartAlbums']['smart_is_forbidden'])?'visitor permissions prepend. Pictures from private albums will be rejected for ungranted visitors. Hence, <strong>using this filter is not required</strong>.':'static permissions. Pictures from private albums may be associated to this virtual smart album. <strong>Using this filter will prevent this to happen</strong>.',
+    ),
   );
 $template->assign('options', $options);
 

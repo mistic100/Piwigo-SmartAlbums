@@ -4,7 +4,7 @@ jQuery(".showInfo").tipTip({
   fadeIn: 200,
   fadeOut: 200,
   maxWidth: '300px',
-  defaultPosition:"right"
+  defaultPosition:"center"
 });
 {/footer_script}
 

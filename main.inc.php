@@ -23,10 +23,11 @@ if (basename(dirname(__FILE__)) != 'SmartAlbums')
 
 global $prefixeTable;
 
-define('SMART_PATH',  PHPWG_PLUGINS_PATH . 'SmartAlbums/');
-define('SMART_ADMIN', get_root_url() . 'admin.php?page=plugin-SmartAlbums');
-// define('SMART_DEBUG', true);
+define('SMART_ID',      'SmartAlbums');
+define('SMART_PATH',    PHPWG_PLUGINS_PATH . SMART_ID . '/');
 define('CATEGORY_FILTERS_TABLE', $prefixeTable . 'category_filters');
+define('SMART_ADMIN',   get_root_url() . 'admin.php?page=plugin-' . SMART_ID);
+// define('SMART_DEBUG', true);
 
 
 add_event_handler('init', 'smart_init');
